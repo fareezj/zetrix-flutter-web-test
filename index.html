@@ -66,7 +66,7 @@
     const sign = (signMessage) => {
         document.getElementById("loginStatus").innerHTML = "Hold on, Signing Message...";
         zetrixConnect.signMessage({ message: signMessage })
-            .then( async(res) => {
+            .then( (res) => {
                 //document.getElementById("signMessageStatus").innerHTML = JSON.stringify(res);
                 console.log(JSON.stringify(res));
                 const loginData = {
@@ -76,7 +76,7 @@
                     blob: signMessage,
                     address: res.data.address
                 };
-                await login(loginData);
+                //await login(loginData);
                 document.getElementById("signBlob").innerHTML = res.data.signData;
                 document.getElementById("publicKey").innerHTML = res.data.publicKey;
                 document.getElementById("blob").innerHTML = signMessage.toString();
