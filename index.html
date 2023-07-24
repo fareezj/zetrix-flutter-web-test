@@ -77,6 +77,7 @@
                     address: res.data.address
                 };
                 //await login(loginData);
+                signBlob.postMessage(res.data.signData);
                 document.getElementById("signBlob").innerHTML = res.data.signData;
                 document.getElementById("publicKey").innerHTML = res.data.publicKey;
                 document.getElementById("blob").innerHTML = signMessage.toString();
