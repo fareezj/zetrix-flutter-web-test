@@ -30,13 +30,42 @@
                 document.getElementById("walletAddress").innerHTML = res.data.address;
                 const walletAddress = res.data.address;
                 Flutter.postMessage(walletAddress);
-                await preAuth(walletAddress);
+                //await preAuth(walletAddress);
+                await newPreAuth(walletAddress);
             })
             .catch((e) => {
                 console.log(e);
                 //document.getElementById("test2").innerHTML = JSON.stringify(e);
             });
     };
+
+        const newPreAuth = async (walletAddress) => {
+        const url = 'https://test-credential.zetrix.com/api/user/blob';
+        // Data to send with the POST request
+        const data = {
+            wallet_address: walletAddress
+        };
+        // Options for the POST request
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        // Make the POST request
+        try {
+            fetch(url, options)
+                .then(response => response.json())
+                .then(json => {
+                    console.log(JSON.stringify(json));
+                    setTimeout(() => sign(json.data.signMessage), 2000);
+                })
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const preAuth = async (walletAddress) => {
         const url = 'https://ssivc-api-uat.myegdev.com/api/preauth';
