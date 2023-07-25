@@ -11,12 +11,16 @@
     const options = {
         bridge: 'wss://test-wscw.zetrix.com',
         qrcode: false,
-        // callMode: 'webView',
+        callMode: 'webView',
     }
 
     var zetrixConnect = new ZetrixWalletConnect();
 
-    zetrixConnect.connect(options);
+    zetrixWalletConnect.connect(options).then(res => {
+       console.log(res);
+    }).catch(error => {
+       console.log(error)
+    })
 
     const test = () => {
         document.getElementById("loginStatus").innerHTML = "Loading...";
