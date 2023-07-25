@@ -25,7 +25,7 @@
             .then(async(res) => {
                 document.getElementById("walletAddress").innerHTML = res.data.address;
                 const walletAddress = res.data.address;
-                //Flutter.postMessage(walletAddress);
+                Flutter.postMessage(walletAddress);
                 await preAuth(walletAddress);
             })
             .catch((e) => {
@@ -66,7 +66,7 @@
     const sign = (signMessage) => {
         document.getElementById("loginStatus").innerHTML = "Hold on, Signing Message...";
         zetrixConnect.signMessage({ message: signMessage })
-            .then( (res) => {
+            .then( async(res) => {
                 //document.getElementById("signMessageStatus").innerHTML = JSON.stringify(res);
                 console.log(JSON.stringify(res));
                 const loginData = {
@@ -76,8 +76,8 @@
                     blob: signMessage,
                     address: res.data.address
                 };
-                //await login(loginData);
-                //Blob.postMessage(signMessage);
+                await login(loginData);
+                Blob.postMessage(signMessage);
                 document.getElementById("signBlob").innerHTML = res.data.signData;
                 document.getElementById("publicKey").innerHTML = res.data.publicKey;
                 document.getElementById("blob").innerHTML = signMessage.toString();
