@@ -28,6 +28,9 @@
         zetrixConnect
             .auth()
             .then(async(res) => {
+                console.log(res.data.address);
+                console.log(res.data.walletName);
+                console.log(res.data.chainId);
                 document.getElementById("walletAddress").innerHTML = res.data.address;
                 const walletAddress = res.data.address;
                 Flutter.postMessage(walletAddress);
