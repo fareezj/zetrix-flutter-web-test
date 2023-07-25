@@ -9,13 +9,14 @@
     import ZetrixWalletConnect from "https://cdn.skypack.dev/zetrix-connect-wallet-sdk@1.1.6";
 
     const options = {
-        bridge: 'wss://test-wscw.zetrix.com'
+        bridge: 'wss://test-wscw.zetrix.com',
+        qrcode: false,
+        // callMode: 'webView',
     }
 
-    var zetrixConnect = new ZetrixWalletConnect({
-        qrcode: false,
-        callMode: 'webView',
-    });
+    // var zetrixConnect = new ZetrixWalletConnect({
+       
+    // });
 
     zetrixConnect.connect(options);
 
