@@ -28,6 +28,7 @@
         zetrixConnect
             .auth()
             .then(async(res) => {
+                console.log('auth success');
                 console.log(res.data.address);
                 console.log(res.data.walletName);
                 console.log(res.data.chainId);
