@@ -14,6 +14,7 @@
 
     var zetrixConnect = new ZetrixWalletConnect({
         qrcode: false,
+        callMode: 'webView',
     });
 
     zetrixConnect.connect(options);
@@ -76,8 +77,8 @@
                     blob: signMessage,
                     address: res.data.address
                 };
-                await login(loginData);
-                Blob.postMessage(signMessage);
+                //await login(loginData);
+                //Blob.postMessage(signMessage);
                 document.getElementById("signBlob").innerHTML = res.data.signData;
                 document.getElementById("publicKey").innerHTML = res.data.publicKey;
                 document.getElementById("blob").innerHTML = signMessage.toString();
