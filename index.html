@@ -16,13 +16,7 @@
 
     var zetrixConnect = new ZetrixWalletConnect();
 
-    zetrixConnect.connect(options).then(res => {
-       console.log('connected')
-       console.log(res.data);
-       console.log(res.data.address);
-    }).catch(error => {
-       console.log(error)
-    })
+    zetrixConnect.connect(options);
 
     const test = () => {
         document.getElementById("loginStatus").innerHTML = "Loading...";
