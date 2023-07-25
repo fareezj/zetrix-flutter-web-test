@@ -59,7 +59,8 @@
                 .then(response => response.json())
                 .then(json => {
                     console.log(JSON.stringify(json));
-                    const filteredBlob = json.data.message.replace(/\\"/g, '"').replace(/\\n/g, '\n');
+                    const blob = json.data.message;
+                    const filteredBlob = blob.replace(/\\"/g, '"').replace(/\\n/g, '\n');
                     console.log('FILTERED BLOB: ' + filteredBlob);
                     setTimeout(() => sign(filteredBlob), 2000);
                 })
