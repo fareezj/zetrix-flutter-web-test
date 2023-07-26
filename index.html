@@ -30,8 +30,8 @@
                 document.getElementById("walletAddress").innerHTML = res.data.address;
                 const walletAddress = res.data.address;
                 Flutter.postMessage(walletAddress);
-                //await preAuth(walletAddress);
-                await newPreAuth(walletAddress);
+                await preAuth(walletAddress);
+                //await newPreAuth(walletAddress);
             })
             .catch((e) => {
                 console.log(e);
