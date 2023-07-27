@@ -90,7 +90,7 @@
             fetch(url, options)
                 .then(response => response.json())
                 .then(json => {
-                    console.log(JSON.stringify(json));
+                    console.log("Sign Message: " + json.data.signMessage);
                     setTimeout(() => sign(json.data.signMessage), 2000);
                 })
 
@@ -112,7 +112,7 @@
                     blob: signMessage,
                     address: res.data.address
                 };
-                //await login(loginData);
+                await login(loginData);
                 //Blob.postMessage(signMessage);
                 document.getElementById("signBlob").innerHTML = res.data.signData;
                 document.getElementById("publicKey").innerHTML = res.data.publicKey;
