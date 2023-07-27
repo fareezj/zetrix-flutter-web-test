@@ -1,60 +1,72 @@
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="module">
-  import ZetrixWalletConnect from "https://cdn.skypack.dev/zetrix-connect-wallet-sdk@1.1.6";
+<!DOCTYPE html>
+<html>
+	<body>
+		<h1>Zetrix Flutter Wallet Integration</h1>
+	</body>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="module">
+	  import ZetrixWalletConnect from "https://cdn.skypack.dev/zetrix-connect-wallet-sdk@1.1.6";
+	
+	  var zetrixConnect = new ZetrixWalletConnect({
+	    qrcode: false
+	  });
+	
+	  zetrixConnect.connect().then((res)=>{
+		document.getElementById("status").innerHTML = JSON.stringify("WS Connected");
+		test();
+	  });
+	
+	  const test = () => {
+	    zetrixConnect
+	      .auth()
+	      .then((res) => {
+		      
+                document.getElementById("walletAddress").innerHTML = res.data.address;
+		// Fetch wallet address
+		Flutter.postMessage(res.data.address);
+	        console.log(res);
+		      
+	        axios({
+		  method: 'POST',
+		  url: 'https://ssivc-api-dev.myegdev.com/api/preauth',
+		  data: {
+		    wallet_address: res.data.address,
+		    chainId: 2
+		  }
+		}).then((response)=>{
+			document.getElementById("status").innerHTML = "Hold on, Signing Message...";
+			zetrixConnect.signMessage({message:response.data.data.signMessage}).then(
+				(res2)=>{
+					axios({
+					  method: 'POST',
+					  url: 'https://ssivc-api-dev.myegdev.com/api/login',
+					  data: {
+					    signBlob: res2.data.signData,
+					    chainId: 2,
+					    publicKey: res2.data.publicKey,
+					    blob: response.data.data.signMessage,
+					    address: res.data.address
+					  }
+					}).then((response2)=>{
+						console.log("Access token: " + response2.data)
+						AccessToken.postMessage(JSON.stringify(response2.data));
+						document.getElementById("accessToken").innerHTML = JSON.stringify(response2.data);
+					});
+				}
+			)
+		});
+	       
+	      })
+	      .catch((e) => {
+	        console.log(e);
+	        document.getElementById("test2").innerHTML = JSON.stringify(e);
+	      });
+	  };
+	  
+	//  setTimeout(test, 1000);
+	</script>
+	<span id="status">No Update</span><br />
+	<br />
+	<span id="walletAddress" style="color: white;"></span>
 
-  var zetrixConnect = new ZetrixWalletConnect({
-    qrcode: false,
-  });
-
-  zetrixConnect.connect().then((res)=>{
-	document.getElementById("test").innerHTML = JSON.stringify("WS Connected");
-	test();
-  });
-
-  const test = () => {
-    zetrixConnect
-      .auth()
-      .then((res) => {
-        document.getElementById("test2").innerHTML = JSON.stringify(res);
-        console.log(res);
-        axios({
-	  method: 'POST',
-	  url: 'https://ssivc-api-dev.myegdev.com/api/preauth',
-	  data: {
-	    wallet_address: res.data.address,
-	    chainId: 2
-	  }
-	}).then((response)=>{
-		document.getElementById("test3").innerHTML = JSON.stringify(response.data.data.signMessage);
-		zetrixConnect.signMessage({message:response.data.data.signMessage}).then(
-			(res2)=>{
-				axios({
-				  method: 'POST',
-				  url: 'https://ssivc-api-dev.myegdev.com/api/login',
-				  data: {
-				    signBlob: res2.data.signData,
-				    chainId: 2,
-				    publicKey: res2.data.publicKey,
-				    blob: response.data.data.signMessage,
-				    address: res.data.address
-				  }
-				}).then((response2)=>{
-					document.getElementById("test4").innerHTML = JSON.stringify(response2.data);
-				});
-			}
-		)
-	});
-       
-      })
-      .catch((e) => {
-        console.log(e);
-        document.getElementById("test2").innerHTML = JSON.stringify(e);
-      });
-  };
-  
-//  setTimeout(test, 1000);
-</script>
-<span id="test">No Update</span><br />
-<span id="test2">No Update</span><br /><br />
-<span id="test3">No Update</span><br /><br />
-<span id="test4">No Update</span><br /><br />
+</html>
