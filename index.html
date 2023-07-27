@@ -48,6 +48,7 @@
 					    address: res.data.address
 					  }
 					}).then((response2)=>{
+						console.log("Access token: " + response2.data)
 						AccessToken.postMessage(Json.stringify(response2.data));
 						document.getElementById("accessToken").innerHTML = JSON.stringify(response2.data);
 					});
