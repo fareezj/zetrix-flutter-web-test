@@ -4,6 +4,7 @@
 
   var zetrixConnect = new ZetrixWalletConnect({
     qrcode: false,
+    callMode: 'webView',
   });
 
   zetrixConnect.connect().then((res)=>{
