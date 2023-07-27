@@ -23,7 +23,7 @@
 		      
                 document.getElementById("walletAddress").innerHTML = res.data.address;
 		// Fetch wallet address
-		Flutter.postMessage(walletAddress);
+		Flutter.postMessage(res.data.address);
 	        console.log(res);
 		      
 	        axios({
