@@ -12,7 +12,7 @@
 	  });
 	
 	  zetrixConnect.connect().then((res)=>{
-		document.getElementById("test").innerHTML = JSON.stringify("WS Connected");
+		document.getElementById("status").innerHTML = JSON.stringify("WS Connected");
 		test();
 	  });
 	
@@ -34,7 +34,7 @@
 		    chainId: 2
 		  }
 		}).then((response)=>{
-			document.getElementById("test3").innerHTML = JSON.stringify(response.data.data.signMessage);
+			document.getElementById("status").innerHTML = "Hold on, Signing Message...";
 			zetrixConnect.signMessage({message:response.data.data.signMessage}).then(
 				(res2)=>{
 					axios({
@@ -64,7 +64,7 @@
 	  
 	//  setTimeout(test, 1000);
 	</script>
-	<span id="loginStatus">No Update</span><br />
+	<span id="status">No Update</span><br />
 	<br />
 	<span id="walletAddress" style="color: white;"></span>
 
