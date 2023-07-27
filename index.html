@@ -3,8 +3,7 @@
   import ZetrixWalletConnect from "https://cdn.skypack.dev/zetrix-connect-wallet-sdk@1.1.6";
 
   var zetrixConnect = new ZetrixWalletConnect({
-    qrcode: false,
-    callMode: 'webView',
+    qrcode: false
   });
 
   zetrixConnect.connect().then((res)=>{
