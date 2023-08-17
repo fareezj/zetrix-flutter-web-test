@@ -29,7 +29,7 @@
 		      
 	        axios({
 		  method: 'POST',
-		  url: 'https://ssivc-api-dev.myegdev.com/api/preauth',
+		  url: 'https://ssivc-api-uat.myegdev.com/api/preauth',
 		  data: {
 		    wallet_address: res.data.address,
 		    chainId: 2
@@ -40,7 +40,7 @@
 				(res2)=>{
 					axios({
 					  method: 'POST',
-					  url: 'https://ssivc-api-dev.myegdev.com/api/login',
+					  url: 'https://ssivc-api-uat.myegdev.com/api/login',
 					  data: {
 					    signBlob: res2.data.signData,
 					    chainId: 2,
